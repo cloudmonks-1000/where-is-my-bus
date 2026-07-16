@@ -5,6 +5,7 @@ import '../screens/auth/login_screen.dart';
 import '../screens/auth/signup_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/splash/splash_screen.dart';
+import 'package:bus/screens/dashboard/dashboard_screens.dart';
 
 class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -28,6 +29,11 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
         );
+        
+        case RouteNames.dashboard:
+          return MaterialPageRoute(
+            builder: (_) => const DashboardScreen(),
+          );
 
       default:
         return MaterialPageRoute(

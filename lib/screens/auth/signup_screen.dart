@@ -15,12 +15,11 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -32,9 +31,11 @@ class _SignupScreenState extends State<SignupScreen> {
     super.dispose();
   }
 
-  void signUp() {
-    // TODO: Firebase Signup
-    Navigator.pushReplacementNamed(context, RouteNames.home);
+  void createAccount() {
+    Navigator.pushReplacementNamed(
+      context,
+      RouteNames.home,
+    );
   }
 
   @override
@@ -47,23 +48,19 @@ class _SignupScreenState extends State<SignupScreen> {
 
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 10,
-          ),
+          padding: const EdgeInsets.all(24),
 
           child: Column(
             children: [
-
               const SizedBox(height: 10),
 
               const AuthLogo(),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
 
               const AuthTitle(
                 title: "Create Account",
-                subtitle: "Join us and start tracking buses in real time",
+                subtitle: "Join us and start tracking buses",
               ),
 
               const SizedBox(height: 35),
@@ -108,14 +105,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 isPassword: true,
               ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 25),
 
               PrimaryButton(
                 title: "Create Account",
-                onTap: signUp,
+                onTap: createAccount,
               ),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 30),
 
               Row(
                 children: const [
@@ -131,9 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 25),
 
               GoogleButton(
-                onPressed: () {
-                  // TODO: Google Sign-In
-                },
+                onPressed: () {},
               ),
 
               const SizedBox(height: 30),
@@ -141,21 +136,16 @@ class _SignupScreenState extends State<SignupScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  const Text(
-                    "Already have an account?",
-                  ),
+                  const Text("Already have an account?"),
 
                   TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     child: const Text("Login"),
-                  ),
+                  )
                 ],
               ),
-
-              const SizedBox(height: 20),
             ],
           ),
         ),

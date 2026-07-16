@@ -1,101 +1,72 @@
 import 'package:flutter/material.dart';
 
+import '../../core/route_names.dart';
+import '../../widgets/auth_logo.dart';
+import '../../widgets/auth_title.dart';
 import 'package:bus/widgets/custom_textfield.dart';
+import '../../widgets/google_button.dart';
 import '../../widgets/primary_button.dart';
 
-class LoginScreen extends StatelessWidget {
-
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void login() {
+    Navigator.pushReplacementNamed(
+      context,
+      RouteNames.home,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       body: SafeArea(
-
         child: SingleChildScrollView(
-
           padding: const EdgeInsets.all(24),
-
           child: Column(
-
-            crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
+              const SizedBox(height: 40),
+
+              const AuthLogo(),
+
+              const SizedBox(height: 20),
+
+              const AuthTitle(
+                title: "Welcome Back 👋",
+                subtitle: "Login to continue",
+              ),
 
               const SizedBox(height: 40),
 
-              Center(
-                child: CircleAvatar(
-                  radius: 45,
-                  backgroundColor: Colors.blue.shade100,
-                  child: const Icon(
-                    Icons.directions_bus,
-                    size: 45,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 25),
-
-              const Center(
-                child: Text(
-                  "WhereIsMyBus",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 8),
-
-              Center(
-                child: Text(
-                  "Track buses in real time",
-                  style: TextStyle(
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 45),
-
-              const Text(
-                "Welcome Back 👋",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              Text(
-                "Login to continue",
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                ),
-              ),
-
-              const SizedBox(height: 30),
-
-              const CustomTextField(
+              CustomTextField(
+                controller: emailController,
                 hint: "Email",
                 prefixIcon: Icons.email_outlined,
               ),
 
               const SizedBox(height: 18),
 
-              const CustomTextField(
+              CustomTextField(
+                controller: passwordController,
                 hint: "Password",
                 prefixIcon: Icons.lock_outline,
                 isPassword: true,
               ),
-
-              const SizedBox(height: 12),
 
               Align(
                 alignment: Alignment.centerRight,
@@ -105,68 +76,48 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
 
               PrimaryButton(
                 title: "Login",
-                onTap: () {},
+                onTap: login,
               ),
 
               const SizedBox(height: 30),
 
               Row(
                 children: const [
-
                   Expanded(child: Divider()),
-
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text("OR"),
                   ),
-
                   Expanded(child: Divider()),
                 ],
               ),
 
               const SizedBox(height: 25),
 
-              SizedBox(
-
-                width: double.infinity,
-                height: 55,
-
-                child: OutlinedButton.icon(
-
-                  onPressed: () {},
-
-                  icon: const Icon(Icons.g_mobiledata, size: 35),
-
-                  label: const Text(
-                    "Continue with Google",
-                  ),
-                ),
+              GoogleButton(
+                onPressed: () {},
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
 
               Row(
-
                 mainAxisAlignment: MainAxisAlignment.center,
-
                 children: [
-
-                  const Text(
-                    "Don't have an account?",
-                  ),
+                  const Text("Don't have an account?"),
 
                   TextButton(
                     onPressed: () {
-                      // Navigate to Signup
+                      Navigator.pushNamed(
+                        context,
+                        RouteNames.signup,
+                      );
                     },
-                    child: const Text(
-                      "Sign Up",
-                    ),
-                  ),
+                    child: const Text("Sign Up"),
+                  )
                 ],
               ),
             ],
