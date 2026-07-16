@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'core/route_names.dart';
 import 'core/theme.dart';
-import 'screens/splash/splash_screen.dart';
+import 'routes/app_routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const WhereIsMyBus());
 }
 
@@ -13,10 +16,14 @@ class WhereIsMyBus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: "Where Is My Bus",
+      debugShowCheckedModeBanner: false,
+
       theme: AppTheme.lightTheme,
-      home: const SplashScreen(),
+
+      initialRoute: RouteNames.splash,
+
+      onGenerateRoute: AppRoutes.generateRoute,
     );
   }
 }
