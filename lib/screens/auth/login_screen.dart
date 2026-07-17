@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() {
     Navigator.pushReplacementNamed(
       context,
-      RouteNames.home,
+      RouteNames.dashboard,
     );
   }
 

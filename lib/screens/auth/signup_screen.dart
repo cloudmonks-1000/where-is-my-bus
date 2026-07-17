@@ -34,7 +34,7 @@ class _SignupScreenState extends State<SignupScreen> {
   void createAccount() {
     Navigator.pushReplacementNamed(
       context,
-      RouteNames.home,
+      RouteNames.dashboard,
     );
   }
 

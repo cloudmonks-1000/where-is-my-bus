@@ -24,11 +24,6 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => const SignupScreen(),
         );
-
-      case RouteNames.home:
-        return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
-        );
         
         case RouteNames.dashboard:
           return MaterialPageRoute(

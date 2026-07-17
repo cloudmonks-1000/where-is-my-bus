@@ -16,19 +16,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   int currentIndex = 0;
 
-  final List<Widget> pages = const [
-    HomeScreen(),
-    SearchScreen(),
-    MapScreen(),
-    ProfileScreen(),
+ late final List<Widget> pages;
+
+@override
+void initState() {
+  super.initState();
+
+  pages = [
+    HomeScreen(
+      onSearchTap: () {
+        setState(() {
+          currentIndex = 1;
+        });
+      },
+    ),
+    const SearchScreen(),
+    const MapScreen(),
+    const ProfileScreen(),
   ];
+}
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
 
-      body: pages[currentIndex],
+    body: IndexedStack(
+  index: currentIndex,
+  children: pages,
+),
 
       bottomNavigationBar: NavigationBar(
 

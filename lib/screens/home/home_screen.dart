@@ -5,32 +5,33 @@ import '../../widgets/quick_action_card.dart';
 import '../../widgets/route_card.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback onSearchTap;
+
+  const HomeScreen({
+    super.key,
+    required this.onSearchTap,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final TextEditingController searchController = TextEditingController();
 
   final List<BusRoute> routes = [
-
     BusRoute(
       busNo: "23A",
       source: "GL Bajaj",
       destination: "Pari Chowk",
       eta: "12 mins",
     ),
-
     BusRoute(
       busNo: "15",
       source: "Sector 62",
       destination: "Botanical Garden",
       eta: "8 mins",
     ),
-
     BusRoute(
       busNo: "42B",
       source: "Knowledge Park",
@@ -59,23 +60,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
       backgroundColor: Colors.grey.shade100,
 
       body: SafeArea(
-
         child: SingleChildScrollView(
-
           padding: const EdgeInsets.all(20),
 
           child: Column(
-
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-
               Text(
                 greeting(),
                 style: const TextStyle(
@@ -97,23 +92,16 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 25),
 
               TextField(
-
                 controller: searchController,
-
+                readOnly: true,
+                onTap: widget.onSearchTap,
                 decoration: InputDecoration(
-
                   hintText: "Search Bus Number",
-
                   prefixIcon: const Icon(Icons.search),
-
                   filled: true,
-
                   fillColor: Colors.white,
-
                   border: OutlineInputBorder(
-
                     borderRadius: BorderRadius.circular(15),
-
                     borderSide: BorderSide.none,
                   ),
                 ),
@@ -132,59 +120,32 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
 
               GridView.count(
-
                 shrinkWrap: true,
-
                 physics: const NeverScrollableScrollPhysics(),
-
                 crossAxisCount: 2,
-
                 crossAxisSpacing: 15,
-
                 mainAxisSpacing: 15,
-
                 childAspectRatio: 1.4,
-
                 children: [
-
                   QuickActionCard(
-
                     icon: Icons.directions_bus,
-
                     title: "Live Bus",
-
                     onTap: () {},
-
                   ),
-
                   QuickActionCard(
-
                     icon: Icons.location_on,
-
                     title: "Nearby Stops",
-
                     onTap: () {},
-
                   ),
-
                   QuickActionCard(
-
                     icon: Icons.favorite,
-
                     title: "Favorites",
-
                     onTap: () {},
-
                   ),
-
                   QuickActionCard(
-
                     icon: Icons.history,
-
                     title: "Recent Trips",
-
                     onTap: () {},
-
                   ),
                 ],
               ),
@@ -202,27 +163,15 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
 
               ListView.builder(
-
                 itemCount: routes.length,
-
                 shrinkWrap: true,
-
                 physics: const NeverScrollableScrollPhysics(),
-
-                itemBuilder: (context,index){
-
+                itemBuilder: (context, index) {
                   return RouteCard(
-
                     route: routes[index],
-
-                    onTap: (){
-
-                    },
-
+                    onTap: () {},
                   );
-
                 },
-
               ),
             ],
           ),

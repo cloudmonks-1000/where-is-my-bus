@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../models/bus_route.dart';
 import '../../widgets/route_card.dart';
+import '../bus/bus_details_screen.dart';
+import '../../models/bus_route.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -45,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    filteredRoutes = allRoutes;
+    filteredRoutes = List.from(allRoutes);
   }
 
   @override
@@ -56,11 +58,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void searchBus(String value) {
     setState(() {
-      filteredRoutes = allRoutes.where((route) {
-        return route.busNo.toLowerCase().contains(value.toLowerCase()) ||
-            route.source.toLowerCase().contains(value.toLowerCase()) ||
-            route.destination.toLowerCase().contains(value.toLowerCase());
-      }).toList();
+      if (value.trim().isEmpty) {
+        filteredRoutes = List.from(allRoutes);
+      } else {
+        filteredRoutes = allRoutes.where((route) {
+          return route.busNo.toLowerCase().contains(value.toLowerCase()) ||
+              route.source.toLowerCase().contains(value.toLowerCase()) ||
+              route.destination.toLowerCase().contains(value.toLowerCase());
+        }).toList();
+      }
     });
   }
 
@@ -70,21 +76,16 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         title: const Text("Search Bus"),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(20),
-
         child: Column(
           children: [
-
             TextField(
               controller: searchController,
               onChanged: searchBus,
-
               decoration: InputDecoration(
                 hintText: "Search by Bus No, Source or Destination",
                 prefixIcon: const Icon(Icons.search),
-
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -107,7 +108,14 @@ class _SearchScreenState extends State<SearchScreen> {
                         return RouteCard(
                           route: filteredRoutes[index],
                           onTap: () {
-                            // Next Screen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => BusDetailsScreen(
+                                  route: filteredRoutes[index],
+                                ),
+                              ),
+                            );
                           },
                         );
                       },
